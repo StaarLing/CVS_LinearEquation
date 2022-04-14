@@ -1,13 +1,7 @@
-name: Build and test project
+name: Build and test latest push
 
 on:
   push:
-  pull_request:
-    branches: [ main ]
-    paths:
-    - '**.cs'
-    - '**.csproj'
-
 env:
   DOTNET_VERSION: '5.0.301' # The .NET SDK version to use
   DOTNET_NOLOGO: 1
