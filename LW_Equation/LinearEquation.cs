@@ -142,7 +142,7 @@ namespace LW_Equation
                 if (eq[i] == 0)
                     count++;
             }
-            if (count == eq.Size)
+            if (count == eq.Size - 1)
                 return true;
             else
                 return false;
