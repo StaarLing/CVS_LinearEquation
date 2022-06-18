@@ -35,12 +35,6 @@ namespace LW_Equation
             this.coefficients = new List<float>();
             this.coefficients = coefficients;
         }
-        public LinearEquation(EquationSize size, float a)
-        {
-            this.coefficients = new List<float>();
-            for (int i = 0; i < size; i++)
-                coefficients.Add(a);
-        }
         public LinearEquation(EquationSize size)
         {
             Random rng = new Random();
@@ -48,7 +42,14 @@ namespace LW_Equation
             for (int i = 0; i < size; i++)
                 coefficients.Add((float)rng.NextDouble() * 100);
         }
-        static public LinearEquation operator+ (LinearEquation first, float second)
+        public LinearEquation(EquationSize size, float a)
+        {
+            this.coefficients = new List<float>();
+            for (int i = 0; i < size; i++)
+                coefficients.Add(a);
+        }
+
+        static public LinearEquation operator +(LinearEquation first, float second)
         {
             LinearEquation equation = first;
             equation.coefficients[equation.Size - 1] += second;
@@ -59,29 +60,6 @@ namespace LW_Equation
             LinearEquation equation = first;
             equation.coefficients[equation.Size - 1] -= second;
             return equation;
-        }
-        public override bool Equals(object obj)
-        {
-            if (obj is LinearEquation equation)
-            {
-                if (Size != equation.Size)
-                    return false;
-                for (int i = 0; i < Size; i++)
-                {
-                    if (this.coefficients[i] != equation.coefficients[i])
-                        return false;
-                }
-                return true;
-            }
-            return false;
-        }
-        static public bool operator ==(LinearEquation first, LinearEquation second)
-        {
-            return first.Equals(second);
-        }
-        static public bool operator !=(LinearEquation first, LinearEquation second)
-        {
-            return !first.Equals(second);
         }
         static public LinearEquation operator -(LinearEquation left, LinearEquation right)
         {
@@ -124,6 +102,55 @@ namespace LW_Equation
                 }
             }
             return ans;
+        }
+        static public LinearEquation operator -(LinearEquation first)
+        {
+            LinearEquation ans = first;
+            for (int i = 0; i < ans.Size; i++)
+            {
+                ans[i] *= -1;
+            }
+            return ans;
+        }
+        public LinearEquation MultiplyByNumber(float val)
+        {
+            LinearEquation ans = new LinearEquation(this.coefficients);
+
+            for (int i = 0; i < ans.Size; i++)
+            {
+                ans[i] *= val;
+            }
+
+            return ans;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is LinearEquation equation)
+            {
+                if (Size != equation.Size)
+                    return false;
+                for (int i = 0; i < Size; i++)
+                {
+                    if (this.coefficients[i] != equation.coefficients[i])
+                        return false;
+                }
+                return true;
+            }
+            return false;
+        }
+        static public bool operator ==(LinearEquation first, LinearEquation second)
+        {
+            return first.Equals(second);
+        }
+        static public bool operator !=(LinearEquation first, LinearEquation second)
+        {
+            return !first.Equals(second);
+        }
+        public float this[int i]
+        {
+            get { return this.coefficients[i]; }
+            set { this.coefficients[i] = value; }
         }
         static public bool operator true(LinearEquation eq)
         {
@@ -170,6 +197,7 @@ namespace LW_Equation
 
             return false;
         }
+
         public override String ToString()
         {
             String ans = "";
@@ -181,30 +209,14 @@ namespace LW_Equation
             ans += this[this.Size - 1].ToString();
             return ans;
         }
-        public LinearEquation MultiplyByNumber(float val)
+        public List<double> ToList()
         {
-            LinearEquation ans = new LinearEquation(this.coefficients);
+            List<double> ans = new List<double>();
 
-            for (int i = 0; i < ans.Size; i++)
-            {
-                ans[i] *= val;
-            }
+            for (int i = 0; i < this.Size-1; i++)
+                ans.Add((double)this.coefficients[i]);
 
             return ans;
-        }
-        static public LinearEquation operator -(LinearEquation first)
-        {
-            LinearEquation ans = first;
-            for (int i = 0; i < ans.Size; i++)
-            {
-                ans[i] *= -1;
-            }
-            return ans;
-        }
-        public float this[int i]
-        {
-            get { return this.coefficients[i]; }
-            set { this.coefficients[i] = value; }
         }
     }
 }
