@@ -166,6 +166,17 @@ namespace LW_Equation
 
             return false;
         }
+        public override String ToString()
+        {
+            String ans = "";
+            for (int i = 0; i < this.Size; i++)
+            {
+                ans += this[i].ToString();
+                ans += ",";
+            }
+            ans += this[this.Size].ToString();
+            return ans;
+        }
         public float this[int i]
         {
             get { return this.coefficients[i]; }
