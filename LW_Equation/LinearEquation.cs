@@ -181,6 +181,17 @@ namespace LW_Equation
             ans += this[this.Size - 1].ToString();
             return ans;
         }
+        public LinearEquation MultiplyByNumber(float val)
+        {
+            LinearEquation ans = new LinearEquation(this.coefficients);
+
+            for (int i = 0; i < ans.Size; i++)
+            {
+                ans[i] *= val;
+            }
+
+            return ans;
+        }
         public float this[int i]
         {
             get { return this.coefficients[i]; }
