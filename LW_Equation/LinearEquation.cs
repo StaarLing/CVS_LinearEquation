@@ -155,12 +155,12 @@ namespace LW_Equation
             for (int i = Size - 1; i >= 0; i--)
             {
                 if (this[i] == 0) counter++;
-                
+                else ind = i;
             }
 
-            if (counter == Size - 2 && this[Size] != 0)
+            if (counter == Size - 2 && this[Size - 1] != 0)
             {
-                ans = (0 - this[Size]) / (this[ind]);
+                ans = (0 - this[Size - 1]) / (this[ind]);
                 return true;
             }
 
