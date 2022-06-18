@@ -147,7 +147,25 @@ namespace LW_Equation
             else
                 return false;
         }
+        public bool Solve(out float ans)
+        {
+            ans = 0;
+            int counter = 0;
+            int ind = -1;
+            for (int i = Size - 1; i >= 0; i--)
+            {
+                if (this[i] == 0) counter++;
+                
+            }
 
+            if (counter == Size - 2 && this[Size] != 0)
+            {
+                ans = (0 - this[Size]) / (this[ind]);
+                return true;
+            }
+
+            return false;
+        }
         public float this[int i]
         {
             get { return this.coefficients[i]; }
