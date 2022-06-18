@@ -11,18 +11,8 @@ namespace LW_EquationTest
         [TestMethod]
         public void LinearEquationTestEquals()
         {
-            LinearEquation a = new LinearEquation(1, 2);
+            LinearEquation a = new LinearEquation(1, 3);
             LinearEquation b = new LinearEquation(1, 2);
-
-            bool result = a == b;
-
-            Assert.IsTrue(result);
-        }
-        [TestMethod]
-        public void LinearEquationTestEquals2()
-        {
-            LinearEquation a = new LinearEquation(1, 2);
-            LinearEquation b = new LinearEquation(1, 3);
 
             bool result = a == b;
 
@@ -204,6 +194,7 @@ namespace LW_EquationTest
 
             Assert.AreEqual(new LinearEquation(1, 2F), result);
         }
+
         [TestMethod]
         public void LinearEquationTestOperatorAdd()
         {
@@ -222,6 +213,31 @@ namespace LW_EquationTest
             LinearEquation res = a - b;
             LinearEquation correct = new LinearEquation(-2, 0, 2, -2, 3);
             bool ans = (res == correct);
+            Assert.IsTrue(ans);
+        }
+
+        [TestMethod]
+        public void LinearEquationTestInitSame()
+        {
+            LinearEquation a = new LinearEquation(new EquationSize(3), 5);
+            LinearEquation res = new LinearEquation(5, 5, 5);
+            bool ans = (a[0] == res[0]) &&
+                       (a[1] == res[1]) &&
+                       (a[2] == res[2]);
+            Assert.IsTrue(ans);
+        }
+
+        [TestMethod]
+        public void LinearEquationTestInitRandom()
+        {
+            LinearEquation a = new LinearEquation(new EquationSize(3));
+            int cnt = 1;
+            for (int i = 1; i < a.Size; i++)
+            {
+                if (a[i] == a[0])
+                    cnt++;
+            }
+            bool ans = (cnt != a.Size - 1);
             Assert.IsTrue(ans);
         }
         [TestMethod]
@@ -252,30 +268,6 @@ namespace LW_EquationTest
         {
             LinearEquation a = new LinearEquation(1, 2, 3, 4, 5);
             bool ans = a.ToString() == "1,2,3,4,5";
-            Assert.IsTrue(ans);
-        }
-        [TestMethod]
-        public void LinearEquationTestInitSame()
-        {
-            LinearEquation a = new LinearEquation(new EquationSize(3), 5);
-            LinearEquation res = new LinearEquation(5, 5, 5);
-            bool ans = (a[0] == res[0]) &&
-                       (a[1] == res[1]) &&
-                       (a[2] == res[2]);
-            Assert.IsTrue(ans);
-        }
-
-        [TestMethod]
-        public void LinearEquationTestInitRandom()
-        {
-            LinearEquation a = new LinearEquation(new EquationSize(3));
-            int cnt = 1;
-            for (int i = 1; i < a.Size; i++)
-            {
-                if (a[i] == a[0])
-                    cnt++;
-            }
-            bool ans = (cnt != a.Size - 1);
             Assert.IsTrue(ans);
         }
         [TestMethod]
@@ -320,5 +312,6 @@ namespace LW_EquationTest
                         (result[2] == equation[2]);
             Assert.IsTrue(ans);
         }
+
     }
 }
