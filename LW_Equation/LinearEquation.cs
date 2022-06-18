@@ -192,6 +192,15 @@ namespace LW_Equation
 
             return ans;
         }
+        static public LinearEquation operator -(LinearEquation first)
+        {
+            LinearEquation ans = first;
+            for (int i = 0; i < ans.Size; i++)
+            {
+                ans[i] *= -1;
+            }
+            return ans;
+        }
         public float this[int i]
         {
             get { return this.coefficients[i]; }
