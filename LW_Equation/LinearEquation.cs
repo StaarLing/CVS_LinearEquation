@@ -79,6 +79,49 @@ namespace LW_Equation
         {
             return !first.Equals(second);
         }
+        static public LinearEquation operator -(LinearEquation left, LinearEquation right)
+        {
+            int size = Math.Max(left.Size, right.Size);
+            LinearEquation ans = new LinearEquation(new EquationSize(size), 0);
+            for (int i = 1; i <= size; i++)
+            {
+                if ((left.Size - i) <= 0 && (right.Size - i) >= 0)
+                {
+                    ans[ans.Size - i] = -right[right.Size - i];
+                }
+                else if ((left.Size - i) >= 0 && (right.Size - i) <= 0)
+                {
+                    ans[ans.Size - i] = left[left.Size - i];
+                }
+                else
+                {
+                    ans[ans.Size - i] = left[left.Size - i] - right[right.Size - i];
+                }
+            }
+            return ans;
+        }
+        static public LinearEquation operator +(LinearEquation left, LinearEquation right)
+        {
+            int size = Math.Max(left.Size, right.Size);
+            LinearEquation ans = new LinearEquation(new EquationSize(size), 0);
+            for (int i = 1; i <= size; i++)
+            {
+                if ((left.Size - i) <= 0 && (right.Size - i) >= 0)
+                {
+                    ans[ans.Size - i] = right[right.Size - i];
+                }
+                else if ((left.Size - i) >= 0 && (right.Size - i) <= 0)
+                {
+                    ans[ans.Size - i] = left[left.Size - i];
+                }
+                else
+                {
+                    ans[ans.Size - i] = left[left.Size - i] + right[right.Size - i];
+                }
+            }
+            return ans;
+        }
+
         public float this[int i]
         {
             get { return this.coefficients[i]; }
