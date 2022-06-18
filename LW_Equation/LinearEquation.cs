@@ -169,12 +169,12 @@ namespace LW_Equation
         public override String ToString()
         {
             String ans = "";
-            for (int i = 0; i < this.Size; i++)
+            for (int i = 0; i < this.Size - 1; i++)
             {
                 ans += this[i].ToString();
                 ans += ",";
             }
-            ans += this[this.Size].ToString();
+            ans += this[this.Size - 1].ToString();
             return ans;
         }
         public float this[int i]
