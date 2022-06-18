@@ -85,11 +85,11 @@ namespace LW_Equation
             LinearEquation ans = new LinearEquation(new EquationSize(size), 0);
             for (int i = 1; i <= size; i++)
             {
-                if ((left.Size - i) <= 0 && (right.Size - i) >= 0)
+                if ((left.Size - i) < 0 && (right.Size - i) >= 0)
                 {
                     ans[ans.Size - i] = -right[right.Size - i];
                 }
-                else if ((left.Size - i) >= 0 && (right.Size - i) <= 0)
+                else if ((left.Size - i) >= 0 && (right.Size - i) < 0)
                 {
                     ans[ans.Size - i] = left[left.Size - i];
                 }
@@ -106,11 +106,11 @@ namespace LW_Equation
             LinearEquation ans = new LinearEquation(new EquationSize(size), 0);
             for (int i = 1; i <= size; i++)
             {
-                if ((left.Size - i) <= 0 && (right.Size - i) >= 0)
+                if ((left.Size - i) < 0 && (right.Size - i) >= 0)
                 {
                     ans[ans.Size - i] = right[right.Size - i];
                 }
-                else if ((left.Size - i) >= 0 && (right.Size - i) <= 0)
+                else if ((left.Size - i) >= 0 && (right.Size - i) < 0)
                 {
                     ans[ans.Size - i] = left[left.Size - i];
                 }
