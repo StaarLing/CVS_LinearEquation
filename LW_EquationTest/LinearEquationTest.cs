@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LW_Equation;
 using System;
+using System.Collections.Generic;
 
 namespace LW_EquationTest
 {
@@ -10,18 +11,8 @@ namespace LW_EquationTest
         [TestMethod]
         public void LinearEquationTestEquals()
         {
-            LinearEquation a = new LinearEquation(1, 2);
+            LinearEquation a = new LinearEquation(1, 3);
             LinearEquation b = new LinearEquation(1, 2);
-
-            bool result = a == b;
-
-            Assert.IsTrue(result);
-        }
-        [TestMethod]
-        public void LinearEquationTestEquals2()
-        {
-            LinearEquation a = new LinearEquation(1, 2);
-            LinearEquation b = new LinearEquation(1, 3);
 
             bool result = a == b;
 
@@ -203,5 +194,124 @@ namespace LW_EquationTest
 
             Assert.AreEqual(new LinearEquation(1, 2F), result);
         }
+
+        [TestMethod]
+        public void LinearEquationTestOperatorAdd()
+        {
+            LinearEquation a = new LinearEquation(1, 2, 3, 4);
+            LinearEquation b = new LinearEquation(2, 1, 0, 5, 1);
+            LinearEquation res = a + b;
+            LinearEquation correct = new LinearEquation(2, 2, 2, 8, 5);
+            bool ans = (res == correct);
+            Assert.IsTrue(ans);
+        }
+        [TestMethod]
+        public void LinearEquationTestOperatorMinus()
+        {
+            LinearEquation a = new LinearEquation(1, 2, 3, 4);
+            LinearEquation b = new LinearEquation(2, 1, 0, 5, 1);
+            LinearEquation res = a - b;
+            LinearEquation correct = new LinearEquation(-2, 0, 2, -2, 3);
+            bool ans = (res == correct);
+            Assert.IsTrue(ans);
+        }
+
+        [TestMethod]
+        public void LinearEquationTestInitSame()
+        {
+            LinearEquation a = new LinearEquation(new EquationSize(3), 5);
+            LinearEquation res = new LinearEquation(5, 5, 5);
+            bool ans = (a[0] == res[0]) &&
+                       (a[1] == res[1]) &&
+                       (a[2] == res[2]);
+            Assert.IsTrue(ans);
+        }
+
+        [TestMethod]
+        public void LinearEquationTestInitRandom()
+        {
+            LinearEquation a = new LinearEquation(new EquationSize(3));
+            int cnt = 1;
+            for (int i = 1; i < a.Size; i++)
+            {
+                if (a[i] == a[0])
+                    cnt++;
+            }
+            bool ans = (cnt != a.Size - 1);
+            Assert.IsTrue(ans);
+        }
+        [TestMethod]
+        public void LinearEquationTestOperatorTrue()
+        {
+            LinearEquation a = new LinearEquation(0, 0, 0, 1);
+            bool ans = false;
+            if (a)
+                ans = true;
+            else
+                ans = false;
+
+            Assert.IsFalse(ans);
+        }
+        [TestMethod]
+        public void LinearEquationTestSolve()
+        {
+            LinearEquation a = new LinearEquation(2, 0, 5);
+
+            float ans = 0;
+            a.Solve(out ans);
+            float trueans = (0F - 5F) / 2F;
+            bool t = ans.CompareTo(trueans) == 0;
+            Assert.IsTrue(t);
+        }
+        [TestMethod]
+        public void LinearEquationTestToString()
+        {
+            LinearEquation a = new LinearEquation(1, 2, 3, 4, 5);
+            bool ans = a.ToString() == "1,2,3,4,5";
+            Assert.IsTrue(ans);
+        }
+        [TestMethod]
+        public void LinearEquationTestMultiplyByNumber1()
+        {
+            LinearEquation a = new LinearEquation(1, 2, 3);
+            LinearEquation result = a.MultiplyByNumber(2);
+            LinearEquation correct = new LinearEquation(2, 4, 6);
+            bool b = result.Equals(correct);
+
+            Assert.IsTrue(b);
+        }
+
+        [TestMethod]
+        public void LinearEquationTestMultiplyByNumber2()
+        {
+            LinearEquation a = new LinearEquation(2, 2, 4);
+            LinearEquation result = a.MultiplyByNumber(1.5F);
+            LinearEquation correct = new LinearEquation(3, 3, 6);
+            bool b = result.Equals(correct);
+
+            Assert.IsTrue(b);
+        }
+        [TestMethod]
+        public void LinearEquationTestOpMinus()
+        {
+            LinearEquation a = new LinearEquation(2, -2, 4);
+            LinearEquation result = -a;
+            LinearEquation correct = new LinearEquation(-2, 2, -4);
+            bool b = result.Equals(correct);
+
+            Assert.IsTrue(b);
+        }
+        [TestMethod]
+        public void LinearEquationTestToList()
+        {
+            LinearEquation a = new LinearEquation(1F, 1.2F, 3.4F);
+            List<double> result = new List<double>() { 1F, 1.2F, 3.4F };
+            List<double> equation = a.ToList();
+            bool ans = (result[0] == equation[0]) &&
+                        (result[1] == equation[1]) &&
+                        (result[2] == equation[2]);
+            Assert.IsTrue(ans);
+        }
+
     }
 }
