@@ -41,15 +41,19 @@ namespace LW_Equation
             for (int i = 0; i < size; i++)
                 coefficients.Add(a);
         }
+        public LinearEquation(EquationSize size)
+        {
+            Random rng = new Random();
+            this.coefficients = new List<float>();
+            for (int i = 0; i < size; i++)
+                coefficients.Add((float)rng.NextDouble() * 100);
+        }
         static public LinearEquation operator+ (LinearEquation first, float second)
         {
             LinearEquation equation = first;
             equation.coefficients[equation.Size - 1] += second;
             return equation;
         }
-        /// <summary>
-        /// Вычитает second из свободного члена first
-        /// </summary>
         static public LinearEquation operator -(LinearEquation first, float second)
         {
             LinearEquation equation = first;
