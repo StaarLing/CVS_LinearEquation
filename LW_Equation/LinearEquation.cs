@@ -219,7 +219,7 @@ namespace LW_Equation
         }
 
 
-        public List<double> ToList()//8
+        public List<double> ToList()
         {
             List<double> ans = new List<double>();
 
